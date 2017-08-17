@@ -36,13 +36,13 @@ let currentShardID = 0;
 let failedShards = 0;
 let done = false;
 
-async function getshardDate(db, shardID) {
+async function getShardDate(db, shardID) {
 	let row = await db.get('SELECT shardDate FROM shards WHERE shardID = ?', [shardID]);
 	if (!row) return new Date(0).toISOString();
 	return row.shardDate;
 }
 
-async function setshardDate(db, shardID, shardDate) {
+async function setShardDate(db, shardID, shardDate) {
 	await db.run('INSERT OR REPLACE INTO shards (shardID, shardDate) VALUES (?,?)',
 		[shardID, shardDate]);
 }
@@ -159,7 +159,7 @@ async function main() {
 		
 		try {
 			currentShardID = shardRow.shardID;
-			let shardDate = await getshardDate(db, shardRow.shardID);
+			let shardDate = await getShardDate(db, shardRow.shardID);
 			let connectionInfo = {
 				host: shardRow.address,
 				user: config.masterUser,
@@ -169,7 +169,7 @@ async function main() {
 			};
 			
 			shardDate = await streamShard(connectionInfo, shardDate);
-			await setshardDate(db, shardRow.shardID, shardDate);
+			await setShardDate(db, shardRow.shardID, shardDate);
 		}
 		catch (err) {
 			failedShards++;
