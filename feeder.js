@@ -59,7 +59,7 @@ function index(batch, callback) {
 	});
 }
 
-function streamShard(connectionInfo, from) {
+function streamShard(connectionInfo, shardDateFrom) {
 	return new Promise(function (resolve, reject) {
 		let connection = mysql2.createConnection(connectionInfo);
 		
@@ -89,7 +89,7 @@ function streamShard(connectionInfo, from) {
 			let shardDate = new Date(0).toISOString();
 			let batch = [];
 			
-			connection.query(sql, [from])
+			connection.query(sql, [shardDateFrom])
 				.stream({highWaterMark: 100000})
 				.pipe(through2({objectMode: true}, function (row, enc, next) {
 					
