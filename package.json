@@ -1,0 +1,17 @@
+{
+  "name": "title-fingerprint-db-feeder",
+  "version": "0.0.1",
+  "description": "",
+  "main": "feeder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Martynas Bagdonas",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "mysql2": "^1.4.1",
+    "request": "^2.81.0",
+    "sqlite": "^2.8.0",
+    "through2": "^2.0.3"
+  }
+}
